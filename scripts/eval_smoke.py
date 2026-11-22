@@ -1,4 +1,4 @@
-"""Run the official evaluator restricted to LIBERO-Spatial task 0 for installation testing."""
+"""Stage 1 baseline smoke test: official evaluator, task 0 per suite, without the proposed smoother."""
 from functools import partial
 import os
 os.environ['OMP_NUM_THREADS'] = '1'

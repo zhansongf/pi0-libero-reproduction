@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Evaluate the pinned local pretrained checkpoint across the four standard suites.
+# Stage 1 baseline evaluation across four suites; the proposed smoothing module is not applied.
 set -euo pipefail
 source /etc/network_turbo >/dev/null 2>&1
 export OMP_NUM_THREADS=1

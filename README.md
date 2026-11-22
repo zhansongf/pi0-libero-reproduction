@@ -1,14 +1,59 @@
-# Pi0 / LIBERO reproduction on AutoDL
+# Inference-Time Action Decoupling and Temporal Smoothing for Pi0 on LIBERO
 
-This repository collects the **existing pretrained-policy evaluation work** for
-`lerobot/pi0_libero_finetuned_v044` on the LIBERO benchmark. It contains environment
-records, download/build scripts, compatibility patches, evaluation commands, and
-the actual small smoke-test results. No model was trained or fine-tuned in this work.
+The project aims to develop an **inference-time smoothing module for Pi0** that
+separates continuous end-effector pose control from discrete gripper control.
+The continuous pose branch will combine a sliding window of historical actions
+with exponentially weighted moving average (EWMA) temporal fusion. The objective
+is to constrain abrupt changes using motion history and reduce robot-arm jitter,
+while keeping gripper decisions outside the continuous pose smoothing operation.
 
-**Status:** four-suite smoke evaluation passed at the program level. A full
-40-task / 400-episode benchmark and final report have not been provided. This is
-an intermediate code snapshot, not a claim of completed benchmark reproduction.
+**Pretrained Pi0 / LIBERO reproduction is the first stage of this project, not
+the entire project.** The current code establishes the baseline evaluation setup
+using `lerobot/pi0_libero_finetuned_v044` on AutoDL. It includes environment
+records, download/build scripts, compatibility patches, baseline evaluation
+commands, and the actual small smoke-test results.
+
+**Current status:** four-suite baseline smoke evaluation passed at the program
+level. A full 40-task / 400-episode baseline has not been run in the committed
+results. The proposed smoothing module, its integration, and its evaluation
+results are not yet included in this repository. No jitter reduction has yet
+been measured, and no model was trained or fine-tuned in the recorded work.
+
+## Project objective and intended method
+
+The intended module operates on Pi0's output before actions reach the simulator
+or robot controller. It decouples the action channels into two branches:
+
+| Branch | Intended treatment |
+|---|---|
+| Continuous spatial pose | Retain action history in a sliding window and apply EWMA temporal fusion to smooth commands. |
+| Discrete gripper control | Handle the open/close decision separately, without averaging it together with spatial pose commands. |
+
+In this LIBERO setup the executed action has seven components: six continuous
+end-effector pose-control components and one gripper-control component. Pi0 also
+uses an internal padded action dimension; the proposed decomposition concerns
+the executed control channels, not a claim that all padded dimensions are pose
+coordinates. The gripper channel is numerically represented in the policy output;
+the proposed module will treat its control decision separately. The exact
+discretization rule remains to be specified by the project's implementation.
+
+Historical commands are intended to provide a temporal prior reflecting recent
+motion continuity. They are not a direct measurement or identification of the
+robot's physical inertia. Window length, EWMA weights, fusion order, state reset
+behavior, and integration with action-chunk execution have not yet been committed.
+The goal is to reduce jitter; this is a research objective rather than an already
+demonstrated experimental finding.
+
+## Project stages
+
+| Stage | Scope | Status in this repository |
+|---|---|---|
+| 1. Baseline reproduction | Set up Pi0 and LIBERO, validate inference, then establish a reproducible baseline. | Environment and smoke tests available; full benchmark pending. |
+| 2. Action decoupling and smoothing | Implement the separate pose/gripper branches, historical sliding window, and EWMA fusion at inference time. | Planned; implementation not yet included. |
+| 3. Comparative evaluation | Compare the baseline against the module to assess jitter reduction and its effect on task performance. | Pending implementation and experiments. |
+
 Missing work is listed at the end and is intentionally left for the project author.
+The repository URL retains its original `pi0-libero-reproduction` name.
 
 ## Existing files
 
@@ -138,9 +183,10 @@ hf auth login
 hf auth whoami
 ```
 
-## Reproduce the existing smoke tests
+## Stage 1: reproduce the existing baseline smoke tests
 
-These are setup checks, not benchmark scores. The wrapper calls the official
+These are baseline setup checks, not benchmark scores or smoothing-module results.
+No action decoupling or temporal smoothing module is applied. The wrapper calls the official
 evaluator and limits each requested suite to task 0 through its `gym_kwargs`
 filter. Compilation is disabled for these short tests. Use a new output directory
 if the specified one already exists. Activate the project environment first.
@@ -179,7 +225,7 @@ These times exclude part of model/environment initialization and are not total
 shell wall-clock times. Success can vary with hardware/numerics; the raw results
 are the observations from the recorded run, not guaranteed outcomes.
 
-## Full benchmark command (prepared, NOT yet run)
+## Stage 1: full baseline benchmark command (prepared, NOT yet run)
 
 ```bash
 bash /root/autodl-tmp/lerobot-env-records/evaluate_pi0.sh
@@ -191,14 +237,21 @@ Output defaults to `/root/autodl-tmp/outputs/eval/pi0_v44s1ka10/`; an alternate
 directory may be supplied as the script's first argument. Unlike the smoke tests,
 this command does not override the checkpoint's compilation setting. Full-run
 duration, success rates, and compilation behavior have not been measured.
+This script evaluates the pretrained baseline; it does not run the proposed module.
 
 ## Missing items intentionally left for manual addition
 
 - The final report and its exact chosen experiments/comparisons.
-- Full benchmark results, logs, total wall-clock runtime and any multi-seed runs.
+- The inference-time action-decoupling and smoothing module, its documented
+  sliding-window/EWMA configuration, and its integration into action execution.
+- The separate gripper-control rule and episode-boundary history-reset behavior.
+- Full baseline benchmark results, logs, total wall-clock runtime and any multi-seed runs.
+- Baseline-versus-module experiments and analysis demonstrating whether jitter
+  is reduced and how task performance is affected.
 - Plotting/analysis scripts and report figures; none existed at collection time.
 - Training/data preprocessing code and training outputs, if training becomes part
-  of the project. The current work only evaluates a pretrained policy.
+  of the project. The proposed contribution is at inference time; the code currently
+  committed only evaluates the unmodified pretrained policy output.
 - Fresh-machine end-to-end validation and any portability improvements.
 - Additional module/function comments or documentation required by the final rubric.
 - A final submission tag after the author completes the missing work.
