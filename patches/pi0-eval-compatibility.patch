@@ -1,0 +1,47 @@
+diff --git a/src/lerobot/policies/factory.py b/src/lerobot/policies/factory.py
+index bdad5cb..2851d48 100644
+--- a/src/lerobot/policies/factory.py
++++ b/src/lerobot/policies/factory.py
+@@ -421,6 +421,12 @@ def make_policy(
+ 
+     if not rename_map:
+         expected_features = set(cfg.input_features.keys()) | set(cfg.output_features.keys())
++        # PI0 synthesizes missing virtual cameras as masked padding in _preprocess_images.
++        if cfg.type == "pi0" and getattr(cfg, "empty_cameras", 0):
++            virtual = {key for key in cfg.input_features if key.startswith("observation.images.empty_camera_")}
++            if len(virtual) > cfg.empty_cameras:
++                raise ValueError("Virtual camera count exceeds configured empty_cameras")
++            expected_features -= virtual
+         provided_features = set(features.keys())
+         if expected_features and provided_features != expected_features:
+             missing = expected_features - provided_features
+diff --git a/src/lerobot/policies/pi0/modeling_pi0.py b/src/lerobot/policies/pi0/modeling_pi0.py
+index 596b273..b81276a 100644
+--- a/src/lerobot/policies/pi0/modeling_pi0.py
++++ b/src/lerobot/policies/pi0/modeling_pi0.py
+@@ -968,6 +968,16 @@ class PI0Policy(PreTrainedPolicy):
+             if remap_count > 0:
+                 print(f"Remapped {remap_count} state dict keys")
+ 
++            # Safetensors stores tied parameters only once. Restore only genuine aliases.
++            current_state = model.state_dict()
++            for missing_key in current_state.keys() - remapped_state_dict.keys():
++                parameter = current_state[missing_key]
++                aliases = [key for key in remapped_state_dict if key in current_state
++                           and current_state[key].data_ptr() == parameter.data_ptr()
++                           and current_state[key].shape == parameter.shape]
++                if aliases:
++                    remapped_state_dict[missing_key] = remapped_state_dict[aliases[0]]
++                    print(f"Restored tied checkpoint alias: {missing_key} <- {aliases[0]}")
+             # Load the remapped state dict into the model
+             missing_keys, unexpected_keys = model.load_state_dict(remapped_state_dict, strict=strict)
+ 
+@@ -995,7 +1005,7 @@ class PI0Policy(PreTrainedPolicy):
+                 print("All keys loaded successfully!")
+ 
+         except Exception as e:
+-            print(f"Warning: Could not remap state dict keys: {e}")
++            raise RuntimeError("Failed to load pretrained PI0 weights completely") from e
+ 
+         return model
+ 

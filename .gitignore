@@ -1,0 +1,27 @@
+# Authentication and local environments
+.env
+.env.*
+!.env.example
+.ssh/
+*ed25519*
+*.pem
+*.key
+token
+stored_tokens
+.cache/
+__pycache__/
+*.pyc
+.venv/
+envs/
+# External source, weights, datasets, and generated runs
+third_party/
+lerobot-src/
+models/
+datasets/
+outputs/
+logs/
+*.zip
+*.tar.gz
+*.whl
+*.safetensors
+# Small existing smoke-test videos are intentionally tracked under results/.

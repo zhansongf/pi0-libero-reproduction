@@ -1,0 +1,128 @@
+{
+  "per_task": [
+    {
+      "task_group": "libero_spatial",
+      "task_id": 0,
+      "metrics": {
+        "sum_rewards": [
+          0.0
+        ],
+        "max_rewards": [
+          0.0
+        ],
+        "successes": [
+          false
+        ],
+        "video_paths": [
+          "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_spatial_0/eval_episode_0.mp4"
+        ]
+      }
+    },
+    {
+      "task_group": "libero_object",
+      "task_id": 0,
+      "metrics": {
+        "sum_rewards": [
+          1.0
+        ],
+        "max_rewards": [
+          1.0
+        ],
+        "successes": [
+          true
+        ],
+        "video_paths": [
+          "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_object_0/eval_episode_0.mp4"
+        ]
+      }
+    },
+    {
+      "task_group": "libero_goal",
+      "task_id": 0,
+      "metrics": {
+        "sum_rewards": [
+          1.0
+        ],
+        "max_rewards": [
+          1.0
+        ],
+        "successes": [
+          true
+        ],
+        "video_paths": [
+          "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_goal_0/eval_episode_0.mp4"
+        ]
+      }
+    },
+    {
+      "task_group": "libero_10",
+      "task_id": 0,
+      "metrics": {
+        "sum_rewards": [
+          0.0
+        ],
+        "max_rewards": [
+          0.0
+        ],
+        "successes": [
+          false
+        ],
+        "video_paths": [
+          "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_10_0/eval_episode_0.mp4"
+        ]
+      }
+    }
+  ],
+  "per_group": {
+    "libero_spatial": {
+      "avg_sum_reward": 0.0,
+      "avg_max_reward": 0.0,
+      "pc_success": 0.0,
+      "n_episodes": 1,
+      "video_paths": [
+        "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_spatial_0/eval_episode_0.mp4"
+      ]
+    },
+    "libero_object": {
+      "avg_sum_reward": 1.0,
+      "avg_max_reward": 1.0,
+      "pc_success": 100.0,
+      "n_episodes": 1,
+      "video_paths": [
+        "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_object_0/eval_episode_0.mp4"
+      ]
+    },
+    "libero_goal": {
+      "avg_sum_reward": 1.0,
+      "avg_max_reward": 1.0,
+      "pc_success": 100.0,
+      "n_episodes": 1,
+      "video_paths": [
+        "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_goal_0/eval_episode_0.mp4"
+      ]
+    },
+    "libero_10": {
+      "avg_sum_reward": 0.0,
+      "avg_max_reward": 0.0,
+      "pc_success": 0.0,
+      "n_episodes": 1,
+      "video_paths": [
+        "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_10_0/eval_episode_0.mp4"
+      ]
+    }
+  },
+  "overall": {
+    "avg_sum_reward": 0.5,
+    "avg_max_reward": 0.5,
+    "pc_success": 50.0,
+    "n_episodes": 4,
+    "eval_s": 56.81327176094055,
+    "eval_ep_s": 14.203318357467651,
+    "video_paths": [
+      "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_spatial_0/eval_episode_0.mp4",
+      "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_object_0/eval_episode_0.mp4",
+      "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_goal_0/eval_episode_0.mp4",
+      "/root/autodl-tmp/outputs/eval/pi0_four_suite_smoke_20261122/videos/libero_10_0/eval_episode_0.mp4"
+    ]
+  }
+}

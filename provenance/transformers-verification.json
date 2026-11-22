@@ -1,0 +1,6 @@
+{
+  "transformers_version": "4.53.3",
+  "pi0_patch_valid": true,
+  "pi0_policy_import": "PI0Policy",
+  "installed_path": "/root/autodl-tmp/envs/lerobot/lib/python3.10/site-packages/transformers/__init__.py"
+}

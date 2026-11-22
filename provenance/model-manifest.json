@@ -1,0 +1,61 @@
+{
+  "repo_id": "lerobot/pi0_libero_finetuned_v044",
+  "revision": "45dcc8fc0e02601c8ccf0554fbd1d26a55070c1f",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 1519,
+      "sha256": null,
+      "git_blob_sha1": "a6344aac8c09253b3b630fb776ae94478aa0275b"
+    },
+    {
+      "path": "README.md",
+      "size": 4033,
+      "sha256": null,
+      "git_blob_sha1": "9d63d00e1f8c321e007d5d02f2efb18fd389a2a6"
+    },
+    {
+      "path": "config.json",
+      "size": 2191,
+      "sha256": null,
+      "git_blob_sha1": "1e98aa6aed8ad06583d5c1cec3f31cf6d01c6845"
+    },
+    {
+      "path": "model.safetensors",
+      "size": 7011548640,
+      "sha256": "31633cfa2131c058ac1a00fddec9f5731ca17842af46d802cc75fea0f725a386",
+      "git_blob_sha1": "295fcef6b91e8bace288d12bbd540ff5df831635"
+    },
+    {
+      "path": "policy_postprocessor.json",
+      "size": 660,
+      "sha256": null,
+      "git_blob_sha1": "0ec8146a07f9b92bc5a3c02e2d6b7d49ba6d26e8"
+    },
+    {
+      "path": "policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "size": 7668,
+      "sha256": "a002c0df7f79c5b169c5a899ad151d4ea1bed246c7d82bd93ed1556558d517a9",
+      "git_blob_sha1": "e75542de525061dee2549887013968b3516cdfdc"
+    },
+    {
+      "path": "policy_preprocessor.json",
+      "size": 1881,
+      "sha256": null,
+      "git_blob_sha1": "84bc897d7a2c6775b21fdd77ecfa951524e53eb7"
+    },
+    {
+      "path": "policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "size": 7668,
+      "sha256": "a002c0df7f79c5b169c5a899ad151d4ea1bed246c7d82bd93ed1556558d517a9",
+      "git_blob_sha1": "e75542de525061dee2549887013968b3516cdfdc"
+    },
+    {
+      "path": "train_config.json",
+      "size": 5629,
+      "sha256": null,
+      "git_blob_sha1": "51f369a6e2cac5c2a92c7694bd35d69b57441074"
+    }
+  ],
+  "total_bytes": 7011579889
+}

@@ -1,0 +1,9 @@
+{
+  "repo": "https://github.com/huggingface/transformers",
+  "branch": "fix/lerobot_openpi",
+  "commit": "dcddb970176382c0fcf4521b0c0e6fc15894dfe0",
+  "version": "4.53.3",
+  "source_path": "/root/autodl-tmp/lerobot-src/transformers-dcddb970176382c0fcf4521b0c0e6fc15894dfe0",
+  "archive_sha256": "87a4dc40543efab2d52e5579574169e561ecc29b1fe8d3edadf962df6f062155",
+  "wheel_sha256": "f98ca62d18ef66f30fe0feae61f7c5b79018ca27385c83f1d0fe6fef53760d26"
+}
